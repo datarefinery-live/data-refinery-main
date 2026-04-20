@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation';
 /**
  * Data Refinery - Home Component
  * Optimized for Mobile Responsiveness & Technical Branding
- * Version: 2.1.4 | Fixed: Removed Duplicate Title Tag
+ * Version: 2.1.5 | Status: Global Weather Node LIVE
  */
 export default function Home() {
   const [query, setQuery] = useState('');
   const router = useRouter();
 
-  // Optimized Search Navigation Logic for Global Streams
+  // Optimized Search Navigation Logic
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
@@ -19,7 +19,7 @@ export default function Home() {
     }
   };
 
-  // Node Configuration for Kerala Specific Data Analytics
+  // Node Configuration
   const featuredNodes = [
     { 
       name: "Kerala_Election_2026", 
@@ -33,9 +33,9 @@ export default function Home() {
       )
     },
     { 
-      name: "Kerala_Weather", 
+      name: "Global_Weather_Node", 
       path: "/weather", 
-      status: "COMING SOON", 
+      status: "LIVE", 
       description: "Real-time meteorological stream",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white font-mono antialiased text-gray-800 overflow-hidden">
       
-      {/* Top Global Navigation Bar - Responsive Padding and Scaled Text */}
+      {/* Top Global Navigation Bar */}
       <nav className="absolute top-0 w-full flex justify-end p-4 md:p-6 space-x-4 md:space-x-6 text-[9px] md:text-[10px] tracking-tight text-gray-400 font-bold uppercase">
         <a href="#" className="hover:text-black transition-colors underline decoration-gray-100 underline-offset-4">
           become a refinery member
@@ -58,10 +58,9 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* Main Core Synthesis Interface - Optimized Vertical Alignment */}
+      {/* Main Core Synthesis Interface */}
       <main className="flex flex-col items-center w-full max-w-4xl px-6 -mt-12 md:-mt-16">
         
-        {/* Adjusted Logo Scale for Balanced Mobile/Desktop Typography */}
         <header className="mb-8 md:mb-10 text-center select-none">
           <h1 className="text-3xl md:text-5xl font-bold tracking-tighter inline-block uppercase font-sans leading-tight">
             data refinery<span className="text-blue-600 animate-pulse">_</span>
@@ -71,17 +70,15 @@ export default function Home() {
           </p>
         </header>
 
-        {/* Search Command Center - High Visibility Input Field */}
+        {/* Search Command Center */}
         <section className="w-full max-w-2xl mb-12 md:mb-16">
           <form onSubmit={handleSearch} className="group">
             <div className="w-full py-4 px-5 rounded-2xl border border-gray-100 bg-gray-50/30 flex items-center space-x-3 md:space-x-4 shadow-sm hover:border-blue-100 focus-within:border-blue-200 focus-within:shadow-md transition-all duration-300">
-              {/* Technical Indicator Icon - Analytics Focus */}
               <div className="flex-shrink-0 text-blue-600">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 3V21H21"/><path d="M7 16L12 11L16 15L21 9"/>
                 </svg>
               </div>
-              {/* Intelligence Stream Input - Mobile Optimized Text Size */}
               <input 
                 type="text" 
                 value={query}
@@ -94,7 +91,7 @@ export default function Home() {
           </form>
         </section>
 
-        {/* Intelligence Nodes Navigation Grid - Dynamic Tile Layout */}
+        {/* Intelligence Nodes Navigation Grid */}
         <section className="w-full max-w-2xl">
           <div className="flex items-center space-x-2 mb-6 opacity-70">
             <span className="h-px w-6 md:w-8 bg-blue-200"></span>
@@ -106,20 +103,19 @@ export default function Home() {
               <button 
                 key={node.name}
                 onClick={() => router.push(node.path)}
-                className="group p-5 md:p-6 rounded-xl border border-gray-100 bg-white hover:border-blue-100 hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-300 text-left flex flex-col space-y-3 md:space-y-4 relative overflow-hidden"
+                className={`group p-5 md:p-6 rounded-xl border transition-all duration-300 text-left flex flex-col space-y-3 md:space-y-4 relative overflow-hidden ${node.status === 'LIVE' ? 'bg-white border-green-100 hover:border-green-400 hover:shadow-green-500/5' : 'bg-white border-gray-100 hover:border-blue-100 hover:shadow-blue-500/5'}`}
               >
-                {/* Visual Status Icon with Contextual Background */}
-                <div className="text-blue-500 bg-blue-50 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                {/* Status Indicator Icon */}
+                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${node.status === 'LIVE' ? 'bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white' : 'bg-blue-50 text-blue-500 group-hover:bg-blue-600 group-hover:text-white'}`}>
                   {node.icon}
                 </div>
                 
-                {/* Node Metadata Display - Monospaced Typography */}
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] md:text-[12px] font-bold text-gray-800 tracking-tight uppercase font-mono">
                       [{node.name}]
                     </span>
-                    <span className="text-[7px] md:text-[8px] px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600 font-bold border border-blue-100 uppercase tracking-tighter">
+                    <span className={`text-[7px] md:text-[8px] px-1.5 py-0.5 rounded-full font-bold border uppercase tracking-tighter ${node.status === 'LIVE' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
                       {node.status}
                     </span>
                   </div>
@@ -133,16 +129,14 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Global Status Footer - Finalized Corporate Branding */}
+      {/* Global Status Footer */}
       <footer className="absolute bottom-0 w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-6 px-6 md:px-10 text-[8px] md:text-[10px] text-gray-400 border-t border-gray-50 uppercase tracking-tighter bg-white/80 backdrop-blur-sm">
         <div className="flex items-center space-x-3 md:space-x-4">
           <div className="flex items-center space-x-2 md:space-x-3">
-            {/* Real-time System Pulse Indicator */}
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
             </span>
-            {/* System Parameters Metadata */}
             <div className="flex flex-wrap items-center gap-x-2 md:gap-x-3 font-semibold tracking-widest text-gray-500 uppercase">
               <span>STATUS: LIVE_TEST_MODE</span>
               <span className="hidden md:inline text-gray-200">//</span>
@@ -151,14 +145,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Corporate Identity - Full Registered Name Display */}
         <div className="flex space-x-6 mt-3 md:mt-0 font-semibold tracking-normal text-center">
           <span className="text-gray-400 font-normal underline decoration-gray-100 underline-offset-2 uppercase text-[7px] md:text-[9px] tracking-wider">
             © 2026 Ezhuthola edTech Private Limited
           </span>
         </div>
       </footer>
-
     </div>
   );
 }
