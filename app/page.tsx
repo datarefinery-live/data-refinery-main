@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 /**
  * Data Refinery - Home Component
  * Optimized for Mobile Responsiveness & Technical Branding
- * Version: 2.1.3 | Fixed: Metadata Title Sync & Mobile View
+ * Version: 2.1.4 | Fixed: Removed Duplicate Title Tag
  */
 export default function Home() {
   const [query, setQuery] = useState('');
@@ -47,9 +47,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white font-mono antialiased text-gray-800 overflow-hidden">
-      
-      {/* HTML Metadata Simulation for Browser Tab Identity */}
-      <title>Data Refinery_</title>
       
       {/* Top Global Navigation Bar - Responsive Padding and Scaled Text */}
       <nav className="absolute top-0 w-full flex justify-end p-4 md:p-6 space-x-4 md:space-x-6 text-[9px] md:text-[10px] tracking-tight text-gray-400 font-bold uppercase">
