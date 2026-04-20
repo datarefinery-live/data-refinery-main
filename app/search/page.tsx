@@ -21,50 +21,53 @@ function SearchContent() {
   ];
 
   return (
-    <main className="max-w-4xl mx-auto">
-      <div className="text-[10px] text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full inline-block mb-8">
+    <>
+      {/* Search query identifier moved back to the top section logic via absolute positioning or flex */}
+      <div className="absolute top-[34px] right-8 md:right-20 lg:right-40 text-[10px] text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full hidden md:block">
         Search_Query: <span className="text-gray-800 font-bold">"{query}"</span>
       </div>
-      
-      <p className="text-[10px] text-gray-400 mb-8 uppercase tracking-tighter">
-        Refining data from global servers... [Status: Alpha_Stream]
-      </p>
-      
-      <div className="space-y-12">
-        {sampleResults.map((result, index) => (
-          <div key={index} className="group border-l border-gray-100 pl-6 hover:border-blue-600 transition-colors">
-            <Link href={result.path}>
-              <h2 className="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer uppercase tracking-tight">
-                {result.title}
-              </h2>
-            </Link>
-            <p className="text-[9px] text-gray-400 mt-1 mb-3 uppercase tracking-widest font-bold">
-              Access_Path: <span className="text-gray-300">{result.path}</span>
-            </p>
-            <p className="text-sm text-gray-500 max-w-2xl leading-relaxed">
-              {result.desc}
-            </p>
-            <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Link href={result.path} className="text-[10px] font-bold text-blue-500 uppercase">
-                Open_Node →
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
 
-      <div className="mt-24 p-8 border border-dashed border-gray-100 rounded-lg text-center bg-gray-50/30">
-        <p className="text-[10px] text-gray-400 uppercase tracking-widest">
-          End of refined output. No more high-fidelity nodes detected.
+      <main className="max-w-4xl mx-auto">
+        <p className="text-[10px] text-gray-400 mb-8 uppercase tracking-tighter">
+          Refining data from global servers... [Status: Alpha_Stream]
         </p>
-      </div>
-    </main>
+        
+        <div className="space-y-12">
+          {sampleResults.map((result, index) => (
+            <div key={index} className="group border-l border-gray-100 pl-6 hover:border-blue-600 transition-colors">
+              <Link href={result.path}>
+                <h2 className="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer uppercase tracking-tight">
+                  {result.title}
+                </h2>
+              </Link>
+              <p className="text-[9px] text-gray-400 mt-1 mb-3 uppercase tracking-widest font-bold">
+                Access_Path: <span className="text-gray-300">{result.path}</span>
+              </p>
+              <p className="text-sm text-gray-500 max-w-2xl leading-relaxed">
+                {result.desc}
+              </p>
+              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Link href={result.path} className="text-[10px] font-bold text-blue-500 uppercase">
+                  Open_Node →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-24 p-8 border border-dashed border-gray-100 rounded-lg text-center bg-gray-50/30">
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+            End of refined output. No more high-fidelity nodes detected.
+          </p>
+        </div>
+      </main>
+    </>
   );
 }
 
 export default function SearchResults() {
   return (
-    <div className="min-h-screen bg-white font-mono p-8 text-gray-800">
+    <div className="min-h-screen bg-white font-mono p-8 text-gray-800 relative">
       <header className="max-w-4xl mx-auto flex justify-between items-center mb-12 border-b border-gray-50 pb-6">
         <Link href="/" className="text-xl font-bold tracking-tighter uppercase group">
           data refinery<span className="text-blue-600 group-hover:animate-pulse">_</span>
