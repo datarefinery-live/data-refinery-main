@@ -34,7 +34,7 @@ export default function Home() {
     },
     { 
       name: "Global_Weather_Node", 
-      path: "/weather", 
+      path: "/weather/kerala", 
       status: "LIVE", 
       description: "Real-time meteorological stream",
       icon: (
