@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Sun, Cloud, CloudRain, CloudLightning, CloudSun, CloudDrizzle,
-  MapPin, TrendingUp, Wind, Droplets, Eye, Gauge, Compass, X, Thermometer 
+  MapPin, TrendingUp, Wind, Droplets, Eye, Gauge, Compass, X, Thermometer, Zap, Waves
 } from 'lucide-react';
 
 import 'leaflet/dist/leaflet.css';
@@ -62,7 +62,7 @@ export default function DataRefineryCentered() {
     const fetchRefineryData = async (lat: number, lon: number) => {
         try {
             const [weatherRes, airRes] = await Promise.all([
-                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,surface_pressure,wind_speed_10m,wind_direction_10m,visibility,cloud_cover,rain,evapotranspiration,soil_temperature_0_to_7cm,soil_moisture_0_to_7cm&daily=weather_code,temperature_2m_max&past_days=4&forecast_days=5&timezone=auto`),
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,dew_point_2m,uv_index,weather_code,relative_humidity_2m,surface_pressure,wind_speed_10m,wind_direction_10m,visibility,cloud_cover,rain,evapotranspiration,soil_temperature_0_to_7cm,soil_moisture_0_to_7cm&daily=weather_code,temperature_2m_max&past_days=4&forecast_days=5&timezone=auto`),
                 fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`)
             ]);
 
@@ -102,15 +102,20 @@ export default function DataRefineryCentered() {
         return <Sun className={`${colorClass || "text-amber-400"}`} size={size} strokeWidth={stroke} />;
     };
 
+    // REARRANGED ORDER: Row 1 (Env) | Row 2 (Physics)
     const sensors = [
+        // Row 1
         { label: 'AQI Index', value: data?.aqi?.us_aqi, unit: 'US', icon: TrendingUp },
-        { label: 'Pressure', value: data?.current?.surface_pressure, unit: 'hPa', icon: Gauge },
+        { label: 'UV Index', value: data?.current?.uv_index?.toFixed(1), unit: 'Idx', icon: Sun },
+        { label: 'Cloud Cover', value: data?.current?.cloud_cover, unit: '%', icon: Cloud },
         { label: 'Rainfall', value: data?.current?.rain, unit: 'mm', icon: Droplets },
+        { label: 'Humidity', value: data?.current?.relative_humidity_2m, unit: '%', icon: Droplets },
+        // Row 2
         { label: 'Wind Speed', value: data?.current?.wind_speed_10m, unit: 'km/h', icon: Wind },
         { label: 'Direction', value: data?.current?.wind_direction_10m, unit: '°', icon: Compass },
+        { label: 'Pressure', value: data?.current?.surface_pressure, unit: 'hPa', icon: Gauge },
         { label: 'Visibility', value: (data?.current?.visibility / 1000).toFixed(0), unit: 'km', icon: Eye },
-        { label: 'Cloud Cover', value: data?.current?.cloud_cover, unit: '%', icon: Cloud },
-        { label: 'Humidity', value: data?.current?.relative_humidity_2m, unit: '%', icon: Droplets }
+        { label: 'Dew Point', value: data?.current?.dew_point_2m?.toFixed(1), unit: '°C', icon: Waves }
     ];
 
     return (
@@ -140,7 +145,7 @@ export default function DataRefineryCentered() {
 
                 <div className="w-full bg-[#1A1C1E] border border-white/[0.04] rounded-[30px] md:rounded-[40px] p-6 md:p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] relative overflow-hidden">
                     
-                    {/* Upper Stats and Location Info */}
+                    {/* Header: Location & Master Temp */}
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 md:gap-12 pb-8 md:pb-10 border-b border-white/[0.06]">
                         <div className="flex-grow space-y-4 md:space-y-6 w-full">
                             <div className="flex items-center gap-3">
@@ -185,7 +190,8 @@ export default function DataRefineryCentered() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3 md:gap-4 py-8 md:py-10">
+                    {/* PERFECT 5x2 GRID */}
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 py-8 md:py-10">
                         {sensors.map((sensor, idx) => {
                             const Icon = sensor.icon;
                             return (
@@ -235,7 +241,7 @@ export default function DataRefineryCentered() {
                         </div>
                     </div>
 
-                    {/* CENTERED 9-DAY ATMOSPHERIC STREAM */}
+                    {/* 9-DAY ATMOSPHERIC STREAM */}
                     <div className="pt-8 md:pt-10 border-t border-white/[0.06]">
                         <div className="flex justify-between items-center mb-6 md:mb-10">
                             <div className="text-[9px] md:text-[10px] font-bold text-white uppercase tracking-[0.2em] md:tracking-[0.4em] flex items-center gap-2">
@@ -273,7 +279,6 @@ export default function DataRefineryCentered() {
                 </div>
             </main>
 
-            {/* INTEGRATED GLOBAL STATUS FOOTER */}
             <footer className="absolute bottom-0 left-0 w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-6 px-6 md:px-10 text-[8px] md:text-[10px] text-gray-400 border-t border-gray-100 uppercase tracking-tighter bg-white/80 backdrop-blur-sm z-40">
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <div className="flex items-center space-x-2 md:space-x-3">
