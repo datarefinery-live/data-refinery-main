@@ -5,13 +5,12 @@ import { useRouter } from 'next/navigation';
 /**
  * Data Refinery - Home Component
  * Optimized for Mobile Responsiveness & Technical Branding
- * Version: 2.1.5 | Status: Global Weather Node LIVE
+ * Version: 2.1.7 | Status: Global Weather Node LIVE
  */
 export default function Home() {
   const [query, setQuery] = useState('');
   const router = useRouter();
 
-  // Optimized Search Navigation Logic
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
@@ -19,19 +18,7 @@ export default function Home() {
     }
   };
 
-  // Node Configuration
   const featuredNodes = [
-    { 
-      name: "Kerala_Election_2026", 
-      path: "/election", 
-      status: "COMING SOON", 
-      description: "Live Assembly Election Result Analytics",
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-        </svg>
-      )
-    },
     { 
       name: "Global_Weather_Node", 
       path: "/weather/kerala", 
@@ -48,7 +35,6 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white font-mono antialiased text-gray-800 overflow-hidden">
       
-      {/* Top Global Navigation Bar */}
       <nav className="absolute top-0 w-full flex justify-end p-4 md:p-6 space-x-4 md:space-x-6 text-[9px] md:text-[10px] tracking-tight text-gray-400 font-bold uppercase">
         <a href="#" className="hover:text-black transition-colors underline decoration-gray-100 underline-offset-4">
           become a refinery member
@@ -58,7 +44,6 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* Main Core Synthesis Interface */}
       <main className="flex flex-col items-center w-full max-w-4xl px-6 -mt-12 md:-mt-16">
         
         <header className="mb-8 md:mb-10 text-center select-none">
@@ -70,7 +55,6 @@ export default function Home() {
           </p>
         </header>
 
-        {/* Search Command Center */}
         <section className="w-full max-w-2xl mb-12 md:mb-16">
           <form onSubmit={handleSearch} className="group">
             <div className="w-full py-4 px-5 rounded-2xl border border-gray-100 bg-gray-50/30 flex items-center space-x-3 md:space-x-4 shadow-sm hover:border-blue-100 focus-within:border-blue-200 focus-within:shadow-md transition-all duration-300">
@@ -91,21 +75,19 @@ export default function Home() {
           </form>
         </section>
 
-        {/* Intelligence Nodes Navigation Grid */}
         <section className="w-full max-w-2xl">
           <div className="flex items-center space-x-2 mb-6 opacity-70">
             <span className="h-px w-6 md:w-8 bg-blue-200"></span>
             <h2 className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-[0.2em] md:tracking-[0.25em] font-extrabold">Featured Nodes</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="flex justify-center">
             {featuredNodes.map((node) => (
               <button 
                 key={node.name}
                 onClick={() => router.push(node.path)}
-                className={`group p-5 md:p-6 rounded-xl border transition-all duration-300 text-left flex flex-col space-y-3 md:space-y-4 relative overflow-hidden ${node.status === 'LIVE' ? 'bg-white border-green-100 hover:border-green-400 hover:shadow-green-500/5' : 'bg-white border-gray-100 hover:border-blue-100 hover:shadow-blue-500/5'}`}
+                className={`group p-5 md:p-6 rounded-xl border transition-all duration-300 text-left flex flex-col space-y-3 md:space-y-4 relative overflow-hidden w-full max-w-md ${node.status === 'LIVE' ? 'bg-white border-green-100 hover:border-green-400 hover:shadow-green-500/5' : 'bg-white border-gray-100 hover:border-blue-100 hover:shadow-blue-500/5'}`}
               >
-                {/* Status Indicator Icon */}
                 <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${node.status === 'LIVE' ? 'bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white' : 'bg-blue-50 text-blue-500 group-hover:bg-blue-600 group-hover:text-white'}`}>
                   {node.icon}
                 </div>
@@ -129,7 +111,6 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Global Status Footer */}
       <footer className="absolute bottom-0 w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-6 px-6 md:px-10 text-[8px] md:text-[10px] text-gray-400 border-t border-gray-50 uppercase tracking-tighter bg-white/80 backdrop-blur-sm">
         <div className="flex items-center space-x-3 md:space-x-4">
           <div className="flex items-center space-x-2 md:space-x-3">

@@ -114,7 +114,7 @@ export default function DataRefineryCentered() {
     ];
 
     return (
-        <div className="min-h-screen bg-white font-mono p-4 md:p-8 text-slate-800 selection:bg-blue-500/10 overflow-x-hidden">
+        <div className="min-h-screen bg-white font-mono p-4 md:p-8 text-slate-800 selection:bg-blue-500/10 overflow-x-hidden pb-24 md:pb-32 relative">
             <header className="max-w-[1540px] mx-auto flex justify-between items-center mb-12 border-b border-gray-100 pb-6">
                 <Link href="/" className="text-xl font-bold tracking-tighter uppercase group text-slate-900">
                     data refinery<span className="text-blue-600 group-hover:animate-pulse">_</span>
@@ -140,7 +140,7 @@ export default function DataRefineryCentered() {
 
                 <div className="w-full bg-[#1A1C1E] border border-white/[0.04] rounded-[30px] md:rounded-[40px] p-6 md:p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] relative overflow-hidden">
                     
-                    {/* Upper Stats and Location Info stays the same */}
+                    {/* Upper Stats and Location Info */}
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 md:gap-12 pb-8 md:pb-10 border-b border-white/[0.06]">
                         <div className="flex-grow space-y-4 md:space-y-6 w-full">
                             <div className="flex items-center gap-3">
@@ -244,7 +244,6 @@ export default function DataRefineryCentered() {
                             </div>
                         </div>
                         
-                        {/* justify-center class applied here to centralize the 9 cards */}
                         <div className="flex flex-wrap items-center justify-center pb-6 gap-3 lg:gap-4 no-scrollbar">
                             {data?.daily?.time.map((dateStr: string, i: number) => {
                                 const isPeak = i === 4;
@@ -273,6 +272,29 @@ export default function DataRefineryCentered() {
                     </div>
                 </div>
             </main>
+
+            {/* INTEGRATED GLOBAL STATUS FOOTER */}
+            <footer className="absolute bottom-0 left-0 w-full flex flex-col md:flex-row justify-between items-center py-4 md:py-6 px-6 md:px-10 text-[8px] md:text-[10px] text-gray-400 border-t border-gray-100 uppercase tracking-tighter bg-white/80 backdrop-blur-sm z-40">
+                <div className="flex items-center space-x-3 md:space-x-4">
+                    <div className="flex items-center space-x-2 md:space-x-3">
+                        <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+                        </span>
+                        <div className="flex flex-wrap items-center gap-x-2 md:gap-x-3 font-semibold tracking-widest text-gray-500 uppercase">
+                            <span>STATUS: LIVE_TEST_MODE</span>
+                            <span className="hidden md:inline text-gray-200">//</span>
+                            <span className="text-gray-400">SCOPE: GLOBAL_ALPHA_STREAM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex space-x-6 mt-3 md:mt-0 font-semibold tracking-normal text-center">
+                    <span className="text-gray-400 font-normal underline decoration-gray-100 underline-offset-2 uppercase text-[7px] md:text-[9px] tracking-wider">
+                        © 2026 Ezhuthola edTech Private Limited
+                    </span>
+                </div>
+            </footer>
         </div>
     );
 }
